@@ -1,5 +1,7 @@
 <?php
 
+require 'src/data/icons.php';
+
 class Category {
     private string $categoryName;
     private string $categoryIcon;
@@ -16,3 +18,7 @@ class Category {
         return $this->categoryIcon;
     }
 }
+
+$toyCategory = new Category ("Toys", $icons['toy']);
+$beautyCategory = new Category ("Beauty", $icons['beauty']);
+$toolsCategory = new Category ("Tools", $icons['tools']);
