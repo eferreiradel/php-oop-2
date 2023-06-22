@@ -11,10 +11,10 @@ class Product  {
         $this->productCategories = $categories;
     }
 
-    public function getProductName() {
+    public function getProductName():string {
         return $this->productName;
     }
-    public function getProductPrice() {
+    public function getProductPrice():float {
         return $this->productPrice;
     }
     public function getProductCategories() {
