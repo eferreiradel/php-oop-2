@@ -22,3 +22,4 @@ class Category {
 $toyCategory = new Category ("Toys", $icons['toy']);
 $beautyCategory = new Category ("Beauty", $icons['beauty']);
 $toolsCategory = new Category ("Tools", $icons['tools']);
+$popularCategory = new Category('Popular', $icons['popular']);

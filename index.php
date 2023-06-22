@@ -32,7 +32,7 @@ require 'src/models/product.php';
                                 Popular
                             </h3>
                         </div>
-                    <?php foreach ($products as $product): ?>
+                    <?php foreach ($popularProducts as $product): ?>
                         <div class="col-3">
                             <div class="card">
                                 <div class="card-body p-0">
@@ -43,7 +43,70 @@ require 'src/models/product.php';
                                         <span class="productName"><?= $product->getProductName() ?></span>
                                         <span class="price"><?= $product->getProductPrice() ?>$</span>
                                     </div>
-                                    <?php foreach ($product->getProductCategories() as $category): ?>
+                                    <?php foreach ($product as $category): ?>
+                                        <span class="badge bg-danger"><?= $category->getCategoryName() ?></span>
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section>
+            <div class="container-fluid">
+                <div class="container">
+                    <div class="row pb-5">
+                        <div class="container py-2">
+                            <h3>
+                                Beauty
+                            </h3>
+                        </div>
+                    <?php foreach ($beautyProducts as $product): ?>
+                        <div class="col-3">
+                            <div class="card">
+                                <div class="card-body p-0">
+                                    <img class="rounded-top" src="<?= $product->getImageSrc() ?>">
+                                </div>
+                                <div class="card-footer">
+                                    <div class="container px-0 d-flex justify-content-between">
+                                        <span class="productName"><?= $product->getProductName() ?></span>
+                                        <span class="price"><?= $product->getProductPrice() ?>$</span>
+                                    </div>
+                                    <?php foreach ($product as $category): ?>
+                                        <span class="badge bg-danger"><?= $category->getCategoryName() ?></span>
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="container-fluid">
+                <div class="container">
+                    <div class="row pb-5">
+                        <div class="container py-2">
+                            <h3>
+                                Beauty
+                            </h3>
+                        </div>
+                    <?php foreach ($toyProducts as $product): ?>
+                        <div class="col-3">
+                            <div class="card">
+                                <div class="card-body p-0">
+                                    <img class="rounded-top" src="<?= $product->getImageSrc() ?>">
+                                </div>
+                                <div class="card-footer">
+                                    <div class="container px-0 d-flex justify-content-between">
+                                        <span class="productName"><?= $product->getProductName() ?></span>
+                                        <span class="price"><?= $product->getProductPrice() ?>$</span>
+                                    </div>
+                                    <?php foreach ($product as $category): ?>
                                         <span class="badge bg-danger"><?= $category->getCategoryName() ?></span>
                                     <?php endforeach; ?>
                                 </div>
