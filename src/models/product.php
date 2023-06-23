@@ -6,6 +6,36 @@ require 'src/data/images.php';
 $products = [];
 $cart = [];
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Get the product name and price from the request body
+    $productName = $_POST['name'];
+    $productPrice = $_POST['price'];
+  
+    // Perform any necessary validation or sanitization on the input data
+  
+    // Add the product to the cart array
+    session_start(); // Start the session (if not already started)
+    if (!isset($_SESSION['cart'])) {
+      $_SESSION['cart'] = []; // Initialize the cart array
+    }
+    $_SESSION['cart'][] = [
+      'name' => $productName,
+      'price' => $productPrice
+    ];
+  
+    // Prepare the response data
+    $response = [
+      'success' => true,
+      'message' => 'Product added to cart successfully',
+      'cart' => $_SESSION['cart']
+    ];
+  
+    // Send the response as JSON
+    header('Content-Type: application/json');
+    echo json_encode($response);
+    exit;
+  }
+
 
 class Product {
     private string $productID;

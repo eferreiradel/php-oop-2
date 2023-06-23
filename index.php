@@ -12,6 +12,7 @@ require 'src/models/product.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/52ae8a07c2.js" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" href="./style.css">
     <title>Document</title>
 </head>
@@ -52,9 +53,9 @@ require 'src/models/product.php';
                                         <?php endforeach; ?>
                                     </div>
                                     <div class="container cart px-0">
-                                        <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample" onclick="addToCart('<?= $product->getProductName() ?>', <?= $product->getProductPrice() ?>)">
-                                            <i class="fa-solid fa-cart-shopping"></i>
-                                        </button>
+                                    <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample" onclick="addToCart('<?= $product->getProductName() ?>', <?= $product->getProductPrice() ?>)">
+                                        <i class="fa-solid fa-cart-shopping"></i>
+                                    </button>
                                     </div>
                                 </div>
                             </div>
@@ -78,7 +79,24 @@ require 'src/models/product.php';
             </div>
         </div>    
     </main>
-    
+    <script>
+  function addToCart(productName, productPrice) {
+    var data = {
+      name: productName,
+      price: productPrice
+    };
+
+    axios.post('product.php', data)
+      .then(function (response) {
+        alert(response.data.message);
+        console.log(response.data.cart);
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+  }
+</script>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 </body>
 </html>
