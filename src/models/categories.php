@@ -2,6 +2,7 @@
 
 require 'src/data/icons.php';
 
+
 class Category { 
     private string $categoryName;
     private string $categoryIcon;

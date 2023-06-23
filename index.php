@@ -2,6 +2,11 @@
 
 require 'src/models/product.php';
 
+$sections = [
+    'Popular' => $popularProducts,
+    'Beauty' => $beautyProducts,
+    'Toys' => $toyProducts,
+];
 
 ?>
 
@@ -27,51 +32,54 @@ require 'src/models/product.php';
         </div>
     </header>
     <main>
-        <section>
-            <div class="container-fluid">
-                <div class="container">
-                    <div class="row pb-5">
-                        <div class="container py-2">
-                            <h3>
-                                Popular
-                            </h3>
-                        </div>
-                        <?php foreach ($popularProducts as $product): ?>
-                        <div class="col-3">
-                            <div class="card">
-                                <div class="card-body p-0">
-                                    <img class="rounded-top" src="<?= $product->getImageSrc() ?>">
-                                </div>
-                                <div class="card-footer">
-                                    <div class="container px-0 d-flex justify-content-between">
-                                        <span class="product--name"><?= $product->getProductName() ?></span>
-                                        <span class="price"><?= $product->getProductPrice() ?>$</span>
-                                    </div>
-                                    <div class="container p-0 py-2">
-                                        <?php foreach ($product->getProductCategories() as $category): ?>
-                                            <span class="badge bg-danger"><?= $category->getCategoryName() ?></span>
-                                        <?php endforeach; ?>
-                                    </div>
-                                    <div class="container cart px-0">
-                                    <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample" onclick="addToCart('<?= $product->getProductName() ?>', <?= $product->getProductPrice() ?>)">
-                                        <i class="fa-solid fa-cart-shopping"></i>
-                                    </button>
-                                    </div>
-                                </div>
+    
+    <?php foreach ($sections as $sectionTitle => $products): ?>
+            <section>
+                <div class="container-fluid">
+                    <div class="container">
+                        <div class="row pb-5">
+                            <div class="container py-2">
+                                <h3><?= $sectionTitle ?></h3>
                             </div>
+                            <?php foreach ($products as $product): ?>
+                                <div class="col-3">
+                                    <div class="card">
+                                        <div class="card-body p-0">
+                                            <img class="rounded-top" src="<?= $product->getImageSrc() ?>">
+                                        </div>
+                                        <div class="card-footer">
+                                            <div class="container px-0 d-flex justify-content-between">
+                                                <span class="product--name"><?= $product->getProductName() ?></span>
+                                                <span class="price"><?= $product->getProductPrice() ?>$</span>
+                                            </div>
+                                            <div class="container p-0 py-2">
+                                                <?php foreach ($product->getProductCategories() as $category): ?>
+                                                    <span class="badge bg-danger"><?= $category->getCategoryName() ?></span>
+                                                <?php endforeach; ?>
+                                            </div>
+                                            <div class="container cart px-0">
+                                                <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample" onclick="addToCart('<?= $product->getProductName() ?>', <?= $product->getProductPrice() ?>)">
+                                                    <i class="fa-solid fa-cart-shopping"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php endforeach; ?>
                         </div>
-                        <?php endforeach; ?>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        <?php endforeach; ?>
+    
+        
         <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
             <div class="offcanvas-header">
                 <h3 class="offcanvas-title" id="offcanvasExampleLabel">CARRELLO</h3>
                 <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body">
-                <ul class="list">
+                 <ul class="list">
                     <?php foreach ($cart as $item): ?>
                         <li class="list-group-item"><?= $item['name'] ?> - <?= $item['price'] ?></li>
                     <?php endforeach; ?>
@@ -86,11 +94,7 @@ require 'src/models/product.php';
       price: productPrice
     };
 
-    axios.post('product.php', data)
-      .then(function (response) {
-        alert(response.data.message);
-        console.log(response.data.cart);
-      })
+    axios.post('/models/product.php', data)
       .catch(function (error) {
         console.error(error);
       });
