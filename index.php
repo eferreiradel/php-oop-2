@@ -3,9 +3,9 @@
 require 'src/models/product.php';
 
 $sections = [
-    'Popular' => $popularProducts,
+    'The most popular today' => $popularProducts,
     'Beauty' => $beautyProducts,
-    'Toys' => $toyProducts,
+    'Our toys collectios' => $toyProducts,
 ];
 
 ?>
@@ -39,7 +39,7 @@ $sections = [
                     <div class="container">
                         <div class="row pb-5">
                             <div class="container py-2">
-                                <h3><?= $sectionTitle ?></h3>
+                            <h3><?= $sectionTitle ?></h3>
                             </div>
                             <?php foreach ($products as $product): ?>
                                 <div class="col-3">
@@ -53,9 +53,13 @@ $sections = [
                                                 <span class="price"><?= $product->getProductPrice() ?>$</span>
                                             </div>
                                             <div class="container p-0 py-2">
-                                                <?php foreach ($product->getProductCategories() as $category): ?>
+                                            <?php foreach ($product->getProductCategories() as $category): ?>
+                                                <?php if ($category->getCategoryName() === 'Popular'): ?>
+                                                    <span class="badge bg-warning"><?= $category->getCategoryName() ?></span>
+                                                <?php else: ?>
                                                     <span class="badge bg-danger"><?= $category->getCategoryName() ?></span>
-                                                <?php endforeach; ?>
+                                                <?php endif; ?>
+                                            <?php endforeach; ?>
                                             </div>
                                             <div class="container cart px-0">
                                                 <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample" onclick="addToCart('<?= $product->getProductName() ?>', <?= $product->getProductPrice() ?>)">
@@ -87,6 +91,10 @@ $sections = [
             </div>
         </div>    
     </main>
+    <footer>
+        
+
+    </footer>
     <script>
   function addToCart(productName, productPrice) {
     var data = {

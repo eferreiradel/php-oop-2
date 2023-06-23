@@ -1,6 +1,11 @@
 /* * {
   border: 1px solid black;
 } */
+
+/* section:nth-child(even) {
+  background-color: rgb(240, 240, 240);
+} */
+
 .card {
   cursor: pointer;
   transition: box-shadow 0.3s ease, transform 0.3s ease;

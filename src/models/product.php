@@ -7,8 +7,7 @@ require 'src/data/images.php';
 
 $products = [];
 $toys= [];
-
-
+$cart= [];
 
 class Product {
     private string $productID;
