@@ -2,7 +2,7 @@
 
 require 'src/data/icons.php';
 
-class Category {
+class Category { 
     private string $categoryName;
     private string $categoryIcon;
 

@@ -4,6 +4,9 @@ require 'src/models/categories.php';
 require 'src/data/images.php';
 
 $products = [];
+$cart = [];
+
+
 class Product {
     private string $productID;
     private string $productImage;
@@ -22,6 +25,15 @@ class Product {
         $products[] = $this;
     }
     
+    public function addToCart() {
+        global $cart; 
+        $productInfo = [
+            'name' => $this->productName,
+            'price' => $this->productPrice,
+        ];
+        $cart[] = $productInfo; 
+    }
+
     public function getProductName(): string {
         return $this->productName;
     }
@@ -48,34 +60,26 @@ $purpleDragon = new Product('Purple Dragon', 100.99, [$toyCategory, $popularCate
 
 // beauty
 $cosmetics = new Product('Cosmo Cosmetics', 25.99, [$beautyCategory, $popularCategory], 'cosmetics', $beautyImages['cosmetics']);
-$cosmetics = new Product('Hair Dresser ', 109.99, [$beautyCategory], 'hairDresser', $beautyImages['hairDress']);
-$cosmetics = new Product('Butterfly Makeup', 89.99, [$beautyCategory,'beauty'], 'butterflyMakeup', $beautyImages['butterfly']);
-$cosmetics = new Product('MakeUpKit', 100.99, [$beautyCategory,'beauty'], 'makeUpKit', $beautyImages['makeUpKit']);
-
-
-
-
+$hairDresser = new Product('Hair Dresser', 109.99, [$beautyCategory, $popularCategory], 'hairDresser', $beautyImages['hairDress']);
+$butterflyMakeup = new Product('Butterfly Makeup', 89.99, [$beautyCategory, 'beauty'], 'butterflyMakeup', $beautyImages['butterfly']);
+$makeUpKit = new Product('MakeUpKit', 100.99, [$beautyCategory, 'beauty'], 'makeUpKit', $beautyImages['makeUpKit']);
 
 $popularProducts = filtercategory($products, $popularCategory);
 $beautyProducts = filtercategory($products, $beautyCategory);
 $toyProducts = filtercategory($products, $toyCategory);
 
-
-
-
 function filtercategory(array $products, $category): array {
-    $popularProducts = [];
+    $filteredProducts = [];
 
     foreach ($products as $product) {
         if (in_array($category, $product->getProductCategories())) {
-            $popularProducts[] = $product;
+            $filteredProducts[] = $product;
         }
     }
 
-    return $popularProducts;
+    return $filteredProducts;
 }
 
+var_dump($cart);
 
-
-
-
+?>

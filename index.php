@@ -1,5 +1,8 @@
 <?php
+
 require 'src/models/product.php';
+
+
 ?>
 
 <!DOCTYPE html>
@@ -12,7 +15,7 @@ require 'src/models/product.php';
     <link rel="stylesheet" href="./style.css">
     <title>Document</title>
 </head>
-<body>
+<body class="bg-lights">
     <header>
         <div class="navbar bg-primary text-white shadow">
             <div class="container">
@@ -32,7 +35,7 @@ require 'src/models/product.php';
                                 Popular
                             </h3>
                         </div>
-                    <?php foreach ($popularProducts as $product): ?>
+                        <?php foreach ($popularProducts as $product): ?>
                         <div class="col-3">
                             <div class="card">
                                 <div class="card-body p-0">
@@ -40,83 +43,42 @@ require 'src/models/product.php';
                                 </div>
                                 <div class="card-footer">
                                     <div class="container px-0 d-flex justify-content-between">
-                                        <span class="productName"><?= $product->getProductName() ?></span>
+                                        <span class="product--name"><?= $product->getProductName() ?></span>
                                         <span class="price"><?= $product->getProductPrice() ?>$</span>
                                     </div>
-                                    <?php foreach ($product as $category): ?>
-                                        <span class="badge bg-danger"><?= $category->getCategoryName() ?></span>
-                                    <?php endforeach; ?>
+                                    <div class="container p-0 py-2">
+                                        <?php foreach ($product->getProductCategories() as $category): ?>
+                                            <span class="badge bg-danger"><?= $category->getCategoryName() ?></span>
+                                        <?php endforeach; ?>
+                                    </div>
+                                    <div class="container cart px-0">
+                                        <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample" onclick="addToCart('<?= $product->getProductName() ?>', <?= $product->getProductPrice() ?>)">
+                                            <i class="fa-solid fa-cart-shopping"></i>
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    <?php endforeach; ?>
+                        <?php endforeach; ?>
                     </div>
                 </div>
             </div>
         </section>
-        
-        <section>
-            <div class="container-fluid">
-                <div class="container">
-                    <div class="row pb-5">
-                        <div class="container py-2">
-                            <h3>
-                                Beauty
-                            </h3>
-                        </div>
-                    <?php foreach ($beautyProducts as $product): ?>
-                        <div class="col-3">
-                            <div class="card">
-                                <div class="card-body p-0">
-                                    <img class="rounded-top" src="<?= $product->getImageSrc() ?>">
-                                </div>
-                                <div class="card-footer">
-                                    <div class="container px-0 d-flex justify-content-between">
-                                        <span class="productName"><?= $product->getProductName() ?></span>
-                                        <span class="price"><?= $product->getProductPrice() ?>$</span>
-                                    </div>
-                                    <?php foreach ($product as $category): ?>
-                                        <span class="badge bg-danger"><?= $category->getCategoryName() ?></span>
-                                    <?php endforeach; ?>
-                                </div>
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
-                    </div>
-                </div>
+        <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+            <div class="offcanvas-header">
+                <h3 class="offcanvas-title" id="offcanvasExampleLabel">CARRELLO</h3>
+                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
-        </section>
-        <section>
-            <div class="container-fluid">
-                <div class="container">
-                    <div class="row pb-5">
-                        <div class="container py-2">
-                            <h3>
-                                Beauty
-                            </h3>
-                        </div>
-                    <?php foreach ($toyProducts as $product): ?>
-                        <div class="col-3">
-                            <div class="card">
-                                <div class="card-body p-0">
-                                    <img class="rounded-top" src="<?= $product->getImageSrc() ?>">
-                                </div>
-                                <div class="card-footer">
-                                    <div class="container px-0 d-flex justify-content-between">
-                                        <span class="productName"><?= $product->getProductName() ?></span>
-                                        <span class="price"><?= $product->getProductPrice() ?>$</span>
-                                    </div>
-                                    <?php foreach ($product as $category): ?>
-                                        <span class="badge bg-danger"><?= $category->getCategoryName() ?></span>
-                                    <?php endforeach; ?>
-                                </div>
-                            </div>
-                        </div>
+            <div class="offcanvas-body">
+                <ul class="list">
+                    <?php foreach ($cart as $item): ?>
+                        <li class="list-group-item"><?= $item['name'] ?> - <?= $item['price'] ?></li>
                     <?php endforeach; ?>
-                    </div>
-                </div>
+                </ul>
             </div>
-        </section>
+        </div>    
     </main>
+    
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 </body>
 </html>
